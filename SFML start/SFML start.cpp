@@ -3,15 +3,33 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "Animation.h"
+
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(512, 512), "SFML Tutorial", sf::Style::Close | sf::Style::Resize);
-	sf::RectangleShape player(sf::Vector2f(100.0f, 100.0f));
-	player.setFillColor(sf::Color::Red);
-	player.setOrigin(50.0f, 50.0f);
+	sf::RectangleShape player(sf::Vector2f(100.0f, 150.0f));
+	player.setPosition(206.0f, 206.0f);
+	sf::Texture playerTexture;
+	playerTexture.loadFromFile("randomdude.png");
+	player.setTexture(&playerTexture);
+
+	Animation animation(&playerTexture, sf::Vector2u(3, 4), 0.3f);
+
+	/*sf::Vector2u textureSize = playerTexture.getSize();
+	textureSize.x /= 3;
+	textureSize.y /= 4;
+	player.setTextureRect(sf::IntRect(textureSize.x * 2, textureSize.y * 3, textureSize.x, textureSize.y));
+	*/
+
+	float deltaTime = 0.0f;
+	sf::Clock clock;
+
 
 	while (window.isOpen())
 	{
+		deltaTime = clock.restart().asSeconds();
+
 		sf::Event evnt;
 		while (window.pollEvent(evnt))
 		{
@@ -20,47 +38,16 @@ int main()
 			case sf::Event::Closed:
 				window.close();
 				break;
-			case sf::Event::Resized:
-				//std::cout << "New window width: " << evnt.size.width <<" New window height: " << evnt.size.height << std::endl;
-				printf("New window width: %i New window height: %i\n", evnt.size.width, evnt.size.height);
-				break;
-			case sf::Event::TextEntered:
-				if (evnt.text.unicode < 128)
-				{
-					printf("%c", evnt.text.unicode); 
-				}
-				
 			}
 
+			animation.Update(0, deltaTime);
+			player.setTextureRect(animation.uvRect);
 
-			/*
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q)) 
-			{
-				player.move(-0.1f, 0.0f);
-			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
-			{
-				player.move(0.1f, 0.0f);
-			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Z))
-			{
-				player.move(0.0f, -0.1f);
-			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
-			{
-				player.move(-0.0f, 0.1f);
-			}
-			*/
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			{
-				sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-				player.setPosition((float)mousePos.x, (float)(mousePos.y));
-			}
-
-			window.clear();
+			window.clear(sf::Color(150, 150, 150));
 			window.draw(player);
 			window.display();
 		}
+
 	}
 	return 0;
 }
