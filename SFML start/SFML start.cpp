@@ -14,13 +14,13 @@ int main()
 	playerTexture.loadFromFile("randomdude.png");
 	player.setTexture(&playerTexture);
 
-	Animation animation(&playerTexture, sf::Vector2u(3, 4), 0.3f);
+	Animation animation(&playerTexture, sf::Vector2u(4, 4), 0.3f);
 
-	/*sf::Vector2u textureSize = playerTexture.getSize();
+	sf::Vector2u textureSize = playerTexture.getSize();
 	textureSize.x /= 3;
 	textureSize.y /= 4;
 	player.setTextureRect(sf::IntRect(textureSize.x * 2, textureSize.y * 3, textureSize.x, textureSize.y));
-	*/
+	
 
 	float deltaTime = 0.0f;
 	sf::Clock clock;
@@ -28,11 +28,11 @@ int main()
 
 	while (window.isOpen())
 	{
-		deltaTime = clock.restart().asSeconds();
 
 		sf::Event evnt;
 		while (window.pollEvent(evnt))
 		{
+			deltaTime = clock.restart().asSeconds();
 			switch (evnt.type)
 			{
 			case sf::Event::Closed:
@@ -40,12 +40,13 @@ int main()
 				break;
 			}
 
-			animation.Update(0, deltaTime);
+			animation.Update(0, deltaTime, false);
 			player.setTextureRect(animation.uvRect);
 
 			window.clear(sf::Color(150, 150, 150));
 			window.draw(player);
 			window.display();
+
 		}
 
 	}
