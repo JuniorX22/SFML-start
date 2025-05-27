@@ -19,7 +19,7 @@ Animation::Animation(sf::Texture* texture, sf::Vector2u imageCount, float switch
 
 	}
 
-	void Animation::Update(int row, float deltaTime, bool faceRight)
+	void Animation::Update(int row, float deltaTime,bool faceRight)
 	{
 		currentImage.y = row;
 		totalTime += deltaTime;
@@ -48,4 +48,5 @@ Animation::Animation(sf::Texture* texture, sf::Vector2u imageCount, float switch
 			uvRect.left = (currentImage.x + 1) * abs(uvRect.width);
 			uvRect.width = -abs(uvRect.width);
 		}
+		
 	}
