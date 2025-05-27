@@ -4,6 +4,7 @@
 
 Animation::Animation(sf::Texture* texture, sf::Vector2u imageCount, float switchTime)
 	{
+	    //deze code laat zien welke image genomen word en hoelang het duurt om te switchen van image
 
 		this->imageCount = imageCount;
 		this->switchTime = switchTime;
@@ -19,7 +20,9 @@ Animation::Animation(sf::Texture* texture, sf::Vector2u imageCount, float switch
 
 	}
 
-	void Animation::Update(int row, float deltaTime,bool faceRight)
+	void Animation::Update(int row, float deltaTime,bool faceRight) //dit zorgt dat de foto update en een animation krijgt
+																	
+
 	{
 		currentImage.y = row;
 		totalTime += deltaTime;
@@ -46,7 +49,7 @@ Animation::Animation(sf::Texture* texture, sf::Vector2u imageCount, float switch
 		else
 		{
 			uvRect.left = (currentImage.x + 1) * abs(uvRect.width);
-			uvRect.width = -abs(uvRect.width);
+			uvRect.width = -abs(uvRect.width); //negatief omdat de image niet tussen positief en negatief blijft veranderen             
 		}
 		
 	}

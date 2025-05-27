@@ -5,7 +5,7 @@
 #include <iostream>
 #include "Player.h"
 #include "Platform.h"
- 
+
 static const float VIEW_HEIGHT = 512.0f;
 
 void ResizeView(const sf::RenderWindow& window, sf::View& view) 
@@ -16,15 +16,15 @@ void ResizeView(const sf::RenderWindow& window, sf::View& view)
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(512, 512), "SFML Tutorial", sf::Style::Close | sf::Style::Resize);
-	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
+	sf::RenderWindow window(sf::VideoMode(512, 512), "SFML Tutorial", sf::Style::Close | sf::Style::Resize); //dit is zodat je de window kan aanpassen
+	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT)); //window krijgt een specifiek view
 	sf::Texture playerTexture;	
-	playerTexture.loadFromFile("randomdude.png");
+	playerTexture.loadFromFile("randomdude.png"); //dit is hoe de player eruit ziet
 
-	Player player(&playerTexture, sf::Vector2u(4, 4), 0.3f, 100);
+	Player player(&playerTexture, sf::Vector2u(4, 4), 0.3f, 100);  //hier kies je welk mannetje gekozen word
 
 
-	Platform platform1(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 200.0f));
+	Platform platform1(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 200.0f)); //code voor het platform
 	Platform platform2(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 0.0f));
 
 
@@ -33,7 +33,7 @@ int main()
 	sf::Clock clock;
 
 
-	while (window.isOpen())
+	while (window.isOpen()) //hoe je een window opent
 	{
 
 		sf::Event evnt;
@@ -52,7 +52,7 @@ int main()
 
 			player.Update(deltaTime);
 
-			platform1.GetCollider().CheckCollision(player.GetCollider(), 0.0f);
+			platform1.GetCollider().CheckCollision(player.GetCollider(), 0.7f); //voorbeeld
 			platform2.GetCollider().CheckCollision(player.GetCollider(), 1.0f);
 
 

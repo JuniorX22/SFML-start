@@ -2,7 +2,7 @@
 
 
 Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed) :
-	animation(texture, imageCount, switchTime)
+	animation(texture, imageCount, switchTime)  //hier maak je een initialiser list hier kan je een membervariable toe wijzen
 {
 	this->speed = speed;
 	faceRight = true;
@@ -19,7 +19,7 @@ Player::~Player()
 
 void::Player::Update(float deltaTime)
 {
-	sf::Vector2f movement(0.0f, 0.0f);
+	sf::Vector2f movement(0.0f, 0.0f);  //movement als je op de keys drukt
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 		movement.x -= speed * deltaTime;
@@ -41,12 +41,12 @@ void::Player::Update(float deltaTime)
 	{
 		row = 1;
 
-		if (movement.x > 0.0f)
-			faceRight = true;
+		if (movement.x > 0.0f) //hier check je of de movement .x groter is dan nul dan kijk je rechts
+			faceRight = true;     
 		else
 			faceRight = false; 
 	}
-	animation.Update(row, deltaTime, faceRight);
+	animation.Update(row, deltaTime, faceRight); 
 	body.setTextureRect(animation.uvRect);
 	body.move(movement);
 }
